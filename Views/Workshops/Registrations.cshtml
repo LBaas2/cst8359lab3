@@ -1,0 +1,28 @@
+﻿@model List<Lab3.Models.Rsvp>
+@{
+    ViewData["Title"] = "Registration";
+}
+
+
+    <table font-family: arial, sans-serif;
+           border-collapse: collapse;
+           width: 100%;>
+        <tr>
+            <th>Full name</th>
+            <th>Needs accomodation</th>
+            <th>Workshop Title</th>
+        </tr>
+        @foreach (var rsvps in Model)
+        {
+            <tr>
+                <td>@rsvps.FullName</td>
+                <td>@rsvps.NeedsAccommodation</td>
+                <td>@rsvps.WorkshopTittle</td>
+            </tr>
+        }
+    </table>
+<div>
+    <a asp-action="Index" class="back-link">
+        ← Back to Workshops
+    </a>
+</div>

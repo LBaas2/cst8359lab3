@@ -1,0 +1,39 @@
+﻿@model Lab3.Models.Rsvp
+@{
+	ViewData["Title"] = "RVSP Form";
+}
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Confirm" class="p-4 rounded shadow-sm bg-white">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="control-label fw-semibold mb-1"></label>
+                <input asp-for="FullName" class="form-control rounded-2" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="NeedsAccommodation" class="control-label fw-semibold mb-1">Needs Accomodation</label>
+                <input type="checkbox" asp-for="NeedsAccommodation"/>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="WorkshopTittle" class="control-label fw-semibold mb-1"></label>
+                <input asp-for="WorkshopTittle" class="form-control rounded-2" />
+                <span asp-validation-for="WorkshopTittle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary px-4 py-2 rounded-2 fw-semibold" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="back-link">
+        ← Back to Workshops
+    </a>
+</div>
+
+

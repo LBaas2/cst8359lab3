@@ -1,12 +1,20 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
+using Lab3.Data;
 using Lab3.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lab3.Controllers
 {
     public class WorkshopsController : Controller
     {
-        private static List<Rsvp> rsvps = new List<Rsvp>();
+        private readonly RsvpDBContext _context;
+
+        public WorkshopsController (RsvpDBContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -19,17 +27,21 @@ namespace Lab3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Confirm(Rsvp rsvp)
+        public async Task<IActionResult> Confirm(Rsvp rsvp)
         {
-            ViewData["message"] = "Thanks for registering,"+rsvp.FullName;
-            rsvps.Add(rsvp);
+            if (ModelState.IsValid)
+            {
+                ViewData["message"] = "Thanks for registering," + rsvp.FullName;
+                _context.Add(rsvp);
+                await _context.SaveChangesAsync();
+            }
             return View(rsvp);
         }
 
-        public  IActionResult Registrations()
+        public async Task<IActionResult> Registrations()
         {
-
-            return View(rsvps);
+            var rsvps = from r in _context.Rsvps select r;
+            return View(await rsvps.ToListAsync());
         }
     }
 }
